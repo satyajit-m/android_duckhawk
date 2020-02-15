@@ -218,7 +218,7 @@ class _HomePageState extends State<HomePage> {
             height: 320.0,
             child: products(),
           ),
-          new Padding(padding: const EdgeInsets.all(20.0),
+    /*new Padding(padding: const EdgeInsets.all(20.0),
             child:new Text('Electronics'
             ) ,),
 
@@ -226,7 +226,7 @@ class _HomePageState extends State<HomePage> {
             height:320.0,
             child:products(),
 
-          ),
+          ),*/
         ],
       ),
 
