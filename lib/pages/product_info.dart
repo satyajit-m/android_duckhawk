@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:project_duckhawk/pages/product_info.dart';
 
 
-class ProductDetails extends StatefulWidget {
+class ProductInfo extends StatefulWidget {
   var product_name;
-  ProductDetails({
+  ProductInfo({
     this.product_name,});
 
   @override
-  _ProductDetailsState createState() => _ProductDetailsState(this.product_name);
+  _ProductInfoState createState() => _ProductInfoState(this.product_name);
 }
 
-class _ProductDetailsState extends State<ProductDetails> {
+class _ProductInfoState extends State<ProductInfo> {
   final p_name;
 
-  _ProductDetailsState(this.p_name);
+  _ProductInfoState(this.p_name);
 
   @override
   Widget build(BuildContext context) {
@@ -46,26 +46,48 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 }
 class Products extends StatefulWidget {
-  final p_name1;
+  final p_name;
   var product_list1;
-  Products(this.p_name1)
+  Products(this.p_name)
   {
-    switch(this.p_name1)
+    switch(this.p_name)
     {
-      case 'Men':
+      case 'Blazer':
         product_list1 = [
           {
-            "name": "T Shirts",
-            "picture": "images/Guide-mens-smart-casual-dress-code15@2x.png",
+            "name": "Blazer1",
+            "picture": "images/download.png",
+            "price": "Rs.2500"
           },
           {
-            "name": "Blazer",
-            "picture": "images/armani.png",
+            "name": "Blazer2",
+            "picture": "images/download (1).png",
+            "price": "Rs.2600"
+          },
+          {
+            "name": "Blazer3",
+            "picture": "images/download (2).png",
+            "price": "Rs.2400"
+          },
+          {
+            "name": "Blazer4",
+            "picture": "images/download (4).png",
+            "price": "Rs.2300"
+          },
+          {
+            "name": "Blazer5",
+            "picture": "images/download (4).png",
+            "price": "Rs.2200"
+          },
+          {
+            "name": "Blazer6",
+            "picture": "images/download (4).png",
+            "price": "Rs.2000"
           },
 
         ];
         break;
-      case 'Watches':
+      case 'T Shirts':
         product_list1 = [
           {
             "name": "Jeans",
@@ -101,10 +123,10 @@ class _ProductsState extends State<Products> {
     return GridView.builder(
         itemCount: list_item.length,
         gridDelegate:
-        new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (BuildContext context, int index) {
           return Single_prod(
-            prod_name: list_item[index]['name'],
+            prod_name: list_item[index]['price'],
             prod_pricture: list_item[index]['picture'],
           );
         });
@@ -126,10 +148,8 @@ class Single_prod extends StatelessWidget {
           tag: prod_name,
           child: Material(
             child: InkWell(
-              onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (context) => new ProductInfo(
-                    product_name: prod_name,
-                  ))),
+              /*onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                  builder: (context) => new ProductInfo())),*/
               child: GridTile(
                   footer: Container(
                     color: Colors.white70,
