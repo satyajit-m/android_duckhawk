@@ -4,6 +4,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:project_duckhawk/components/horizontal_listview.dart';
 import 'package:project_duckhawk/components/products.dart';
 import 'package:project_duckhawk/pages/product_details.dart';
+import 'package:project_duckhawk/pages/cart.dart';
 
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -191,7 +192,9 @@ class _HomePageState extends State<HomePage> {
                       child: ListTile(title: Text('My Orders')),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>new cart()));
+                      },
                       child: ListTile(title: Text('My Cart')),
                     ),
                     InkWell(
@@ -242,16 +245,19 @@ class _HomePageState extends State<HomePage> {
               child: new Row(
                 children: <Widget>[
                   new Icon(
+
                     Icons.arrow_right,
                     color: Colors.white,
                   ),
                   new Text(
+
                     'Fashion',
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),
+
                 ],
               )),
           Container(
