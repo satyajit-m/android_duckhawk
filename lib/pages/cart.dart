@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
+//my imports
+import 'package:project_duckhawk/components/cart_products.dart';
+
 class cart extends StatefulWidget {
+  final c_p_pic;
+  final c_p_name;
+  final c_p_price;
+
+
+  cart(this.c_p_pic, this.c_p_name, this.c_p_price);
+
   @override
   _cartState createState() => _cartState();
 }
@@ -23,6 +33,7 @@ class _cartState extends State<cart> {
 
         ],
       ),
+      body:new Cart_Products(widget.c_p_pic,widget.c_p_name,widget.c_p_price),
       bottomNavigationBar: new Container(
         color:Colors.white,
         child: Row(

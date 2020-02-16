@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_duckhawk/pages/cart.dart';
+import 'package:project_duckhawk/pages/indiv_product.dart';
 import 'package:project_duckhawk/pages/product_info.dart';
 
 
@@ -35,7 +37,9 @@ class _ProductInfoState extends State<ProductInfo> {
             icon: Icon(
               Icons.shopping_cart,color: Colors.white,
             ),
-            onPressed: (){},)
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder:(context)=>new cart(null,null,null)));
+            },)
         ],
       ),
 
@@ -57,32 +61,32 @@ class Products extends StatefulWidget {
           {
             "name": "Blazer1",
             "picture": "images/download.png",
-            "price": "Rs.2500"
+            "price": "₹2500"
           },
           {
             "name": "Blazer2",
             "picture": "images/download (1).png",
-            "price": "Rs.2600"
+            "price": "₹2600"
           },
           {
             "name": "Blazer3",
             "picture": "images/download (2).png",
-            "price": "Rs.2400"
+            "price": "₹2400"
           },
           {
             "name": "Blazer4",
             "picture": "images/download (4).png",
-            "price": "Rs.2300"
+            "price": "₹2300"
           },
           {
             "name": "Blazer5",
             "picture": "images/download (4).png",
-            "price": "Rs.2200"
+            "price": "₹2200"
           },
           {
             "name": "Blazer6",
             "picture": "images/download (4).png",
-            "price": "Rs.2000"
+            "price": "₹2000"
           },
 
         ];
@@ -126,8 +130,9 @@ class _ProductsState extends State<Products> {
         new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
         itemBuilder: (BuildContext context, int index) {
           return Single_prod(
-            prod_name: list_item[index]['price'],
+            prod_name: list_item[index]['name'],
             prod_pricture: list_item[index]['picture'],
+            prod_price: list_item[index]['price']
           );
         });
   }
@@ -135,10 +140,12 @@ class _ProductsState extends State<Products> {
 class Single_prod extends StatelessWidget {
   final prod_name;
   final prod_pricture;
+  final prod_price;
 
   Single_prod({
     this.prod_name,
     this.prod_pricture,
+    this.prod_price
   });
 
   @override
@@ -148,8 +155,8 @@ class Single_prod extends StatelessWidget {
           tag: prod_name,
           child: Material(
             child: InkWell(
-              /*onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (context) => new ProductInfo())),*/
+              onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                  builder: (context) => new indivProduct(prod_name,prod_pricture,prod_price))),
               child: GridTile(
                   footer: Container(
                     color: Colors.white70,

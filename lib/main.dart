@@ -71,10 +71,17 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     new Text(_currentAddress),
+
+
                   ],
                 ),
               ],
-            )),
+
+            )
+            ),
+        leading:new Text("hi"),
+
+
           ),
       /*
 
@@ -193,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>new cart()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>new cart(null,null,null)));
                       },
                       child: ListTile(title: Text('My Cart')),
                     ),

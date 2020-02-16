@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_duckhawk/pages/cart.dart';
 import 'package:project_duckhawk/pages/product_info.dart';
 
 
@@ -35,7 +36,9 @@ class _ProductDetailsState extends State<ProductDetails> {
             icon: Icon(
               Icons.shopping_cart,color: Colors.white,
             ),
-            onPressed: (){},)
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder:(context)=>new cart(null,null,null)));
+            },)
         ],
       ),
 
