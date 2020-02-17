@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:project_duckhawk/components/horizontal_listview.dart';
 import 'package:project_duckhawk/components/products.dart';
+import 'package:project_duckhawk/pages/login_page.dart';
 import 'package:project_duckhawk/pages/product_details.dart';
 import 'package:project_duckhawk/pages/cart.dart';
 
@@ -150,15 +151,21 @@ class _HomePageState extends State<HomePage> {
       endDrawer: new Drawer(
         child: new ListView(
           children: <Widget>[
-            new UserAccountsDrawerHeader(
-              accountName: Text('Ekanta'),
-              accountEmail: null,
-              currentAccountPicture: GestureDetector(
-                  child: new CircleAvatar(
-                backgroundColor: Colors.grey,
-              )),
-              decoration: new BoxDecoration(color: Color(0xff104670)),
+            InkWell(
+              child: new UserAccountsDrawerHeader(
+                accountName: Text('Ekanta'),
+                accountEmail: null,
+                currentAccountPicture: GestureDetector(
+                    child: new CircleAvatar(
+                      backgroundColor: Colors.grey,
+                    )),
+                decoration: new BoxDecoration(color: Color(0xff104670)),
+              ),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>new LoginPage()));
+              },
             ),
+
             InkWell(
               onTap: () {},
               child: ListTile(
@@ -268,7 +275,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               )),
           Container(
-            height: 120.0,
+            height:120.0,
             child: products(
               'fashion',
             ),
@@ -297,7 +304,7 @@ class _HomePageState extends State<HomePage> {
             ) ,),*/
 
           Container(
-            height: 120.0,
+            height:120.0,
             child: products('electronics'),
           ),
         ],
