@@ -6,6 +6,8 @@ import 'package:project_duckhawk/components/products.dart';
 import 'package:project_duckhawk/pages/login_page.dart';
 import 'package:project_duckhawk/pages/product_details.dart';
 import 'package:project_duckhawk/pages/cart.dart';
+import 'package:project_duckhawk/pages/location.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -18,14 +20,42 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-
+Future<void> currentUser() async {
+  FirebaseUser user = await FirebaseAuth.instance.currentUser();
+  print(user.email);
+  print(user.uid);
+  return user;
+}
 class _HomePageState extends State<HomePage> {
+
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
   Position _currentPosition;
   String _currentAddress = "Tap to update";
+  String name="hello";
+  FirebaseUser mCurrentUser;
+  FirebaseAuth _auth;
 
   String _value = '';
   void _onClick(String value) => setState(() => _value = value);
+  @override
+  void initState(){
+    super.initState();
+
+    _getCurrentLocation();
+    _getCurrentUser();
+    print("Here outside async");
+  }
+  _getCurrentUser()async{
+    _auth=FirebaseAuth.instance;
+    mCurrentUser=await _auth.currentUser();
+    print("Hello"+mCurrentUser.phoneNumber.toString());
+    name=mCurrentUser.phoneNumber.toString();
+
+  }
+  _signOut() async {
+    await _auth.signOut();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +70,19 @@ class _HomePageState extends State<HomePage> {
       ),
     );
     Widget image_carousel1 = new Container(
-      height: 200.00,
+      height: 180.00,
       child: new Carousel(
         boxFit: BoxFit.cover,
         images: [
-          AssetImage('images/armani.png'),
-          AssetImage('images/watches-111a.png'),
-          AssetImage('images/Guide-mens-smart-casual-dress-code15@2x.png'),
-          AssetImage('images/men-jeans@2x.png'),
+          Image.asset('images/armani.png'),
+          Image.asset('images/watches-111a.png'),
+          Image.asset('images/Guide-mens-smart-casual-dress-code15@2x.png',width: 150),
+          Image.asset('images/men-jeans@2x.png'),
         ],
         autoplay: true,
         animationCurve: Curves.fastOutSlowIn,
         animationDuration: Duration(milliseconds: 1000),
+        dotBgColor: Colors.transparent,
       ),
     );
 
@@ -68,7 +99,9 @@ class _HomePageState extends State<HomePage> {
                     new IconButton(
                       icon: new Icon(Icons.place),
                       onPressed: () {
-                        _getCurrentLocation();
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>new location()));
+                        //_getCurrentLocation();
+                        currentUser();
                       },
                     ),
                     new Text(_currentAddress),
@@ -80,10 +113,12 @@ class _HomePageState extends State<HomePage> {
 
             )
             ),
-        leading:new Text("hi"),
+        //leading:new Text("hi"),
 
 
           ),
+
+
       /*
 
 
@@ -153,10 +188,13 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             InkWell(
               child: new UserAccountsDrawerHeader(
-                accountName: Text('Ekanta'),
+
+
+                accountName: Text(name),
                 accountEmail: null,
                 currentAccountPicture: GestureDetector(
                     child: new CircleAvatar(
+                      //backgroundImage: ImageProvider("images/men-jeans@2x.png"),
                       backgroundColor: Colors.grey,
                     )),
                 decoration: new BoxDecoration(color: Color(0xff104670)),
@@ -232,7 +270,10 @@ class _HomePageState extends State<HomePage> {
                       child: ListTile(title: Text('Settings')),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        _signOut();
+                        name="hi";
+                      },
                       child: ListTile(title: Text('LOGOUT')),
                     ),
                     InkWell(

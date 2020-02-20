@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:project_duckhawk/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:project_duckhawk/main.dart';
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -14,6 +15,7 @@ enum FormType{
 
 class _LoginPageState extends State<LoginPage> {
   final DBRef = FirebaseDatabase.instance.reference().child('\User');
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   final formKey = new GlobalKey<FormState>();
   String _email;
@@ -31,8 +33,9 @@ class _LoginPageState extends State<LoginPage> {
       return false;
     }
   }
-void writeData(){
-    
+  void writeData(){
+    final DBRef = FirebaseDatabase.instance.reference().child('User');
+
     DBRef.push().set({
       'name':_name,
       'email':_email,
@@ -41,20 +44,31 @@ void writeData(){
 
     });
 
-}
-  void validateandSubmit() async {
+  }
+  Future<void> validateandSubmit() async {
     if (validateandSave()) {
       try {
         if (_formType == FormType.login) {
-          FirebaseUser user = (await FirebaseAuth.instance
-              .signInWithEmailAndPassword(
-              email: _email, password: _password)) as FirebaseUser;
+          //FirebaseUser user = (await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password)) as FirebaseUser;
+          final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
+              email: _email, password: _password)).user;
+          //FirebaseUser user = await FirebaseAuth.instance .signInWithEmailAndPassword(email: _email, password: _password);
+          //final FirebaseUser user = (await _auth.signInWithEmailAndPassword(email:_email,password: _password).user;
+          if (user != null) {
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => new HomePage()));
+            print("hello"+user.displayName);
+          }
+          return user;
         }
         else {
           writeData();
           FirebaseUser user = (await FirebaseAuth.instance
               .createUserWithEmailAndPassword(
               email: _email, password: _password)) as FirebaseUser;
+
+
+
 
         }
       }
