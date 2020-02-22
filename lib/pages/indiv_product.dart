@@ -17,24 +17,24 @@ class _indivProductState extends State<indivProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
+    appBar: new AppBar(
 
-        backgroundColor: Color(0xff104670), //CHECK COLOR CODE
-        title: Text(widget.prod_name),
+    backgroundColor: Color(0xff104670), //CHECK COLOR CODE
+    title: Text(widget.prod_name),
 
-        actions: <Widget>[
-          new IconButton(
-              icon: Icon(
-                Icons.search,color: Colors.white,
-              ),
-              onPressed: (){}),
-          new IconButton(
-            icon: Icon(
-              Icons.shopping_cart,color: Colors.white,
-            ),
-            onPressed: (){},)
-        ],
-      ),
+    actions: <Widget>[
+    new IconButton(
+    icon: Icon(
+    Icons.search,color: Colors.white,
+    ),
+    onPressed: (){}),
+    new IconButton(
+    icon: Icon(
+    Icons.shopping_cart,color: Colors.white,
+    ),
+    onPressed: (){},)
+    ],
+    ),
 
       body: ListView(
         children: <Widget>[

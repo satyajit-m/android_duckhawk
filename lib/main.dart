@@ -13,10 +13,17 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 
 void main() {
-  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: HomePage()));
+  runApp(MaterialApp(debugShowCheckedModeBanner: false,
+
+
+      home: HomePage(null)));
 }
 
 class HomePage extends StatefulWidget {
+
+  final add;
+  HomePage(this.add);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -30,7 +37,7 @@ class _HomePageState extends State<HomePage> {
 
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
   Position _currentPosition;
-  String _currentAddress = "Tap to update";
+  String _currentAddress ;
   String name="hello";
   FirebaseUser mCurrentUser;
   FirebaseAuth _auth;
@@ -48,8 +55,8 @@ class _HomePageState extends State<HomePage> {
   _getCurrentUser()async{
     _auth=FirebaseAuth.instance;
     mCurrentUser=await _auth.currentUser();
-    print("Hello"+mCurrentUser.phoneNumber.toString());
-    name=mCurrentUser.phoneNumber.toString();
+    print("Hello"+mCurrentUser.email.toString());
+    name=mCurrentUser.email.toString();
 
   }
   _signOut() async {
@@ -90,28 +97,36 @@ class _HomePageState extends State<HomePage> {
       appBar: new AppBar(
             backgroundColor: Color(0xff104670),
             title: Container(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                  children: <Widget>[
+                    Row(
+                      children:
+                     <Widget>[
+                      new IconButton(
+                        icon: new Icon(Icons.place),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>new MyLocation()));
+                          //_getCurrentLocation();
+                          currentUser();
+                        },
+                      ),
+                       SingleChildScrollView(
+                           child: Container(
+                               width: 200,
+                              child: new FlatButton(onPressed: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>new MyLocation()));
+                              }, child: Text("${widget.add}",style: new TextStyle(fontSize: 15.0, color: Colors.white),))),)
+                             //child: new FlatButton(onPre,new Text("${widget.add}",style: new TextStyle(fontSize: 15.0),)))),
 
-                child: Column(
-                children: <Widget>[
-                  Row(
-                    children:
-                   <Widget>[
-                    new IconButton(
-                      icon: new Icon(Icons.place),
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>new location()));
-                        //_getCurrentLocation();
-                        currentUser();
-                      },
-                    ),
-                    new Text(_currentAddress),
 
-
-                  ],
-                ),
+                    ],
+                  ),
               ],
 
-            )
+            ),
+                )
             ),
         //leading:new Text("hi"),
 

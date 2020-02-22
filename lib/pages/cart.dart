@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //my imports
 import 'package:project_duckhawk/components/cart_products.dart';
+import 'package:project_duckhawk/pages/checkout.dart';
 
 class cart extends StatefulWidget {
   final c_p_pic;
@@ -10,11 +11,31 @@ class cart extends StatefulWidget {
 
   cart(this.c_p_pic, this.c_p_name, this.c_p_price);
 
+
   @override
   _cartState createState() => _cartState();
 }
 
 class _cartState extends State<cart> {
+
+
+  createAlertDialog(BuildContext context)
+    {
+      TextEditingController customController = TextEditingController();
+      return showDialog(context: context,builder: (context){
+        return AlertDialog(
+          title: Text("Items available for checkout"),
+          content: Image.asset("images/download (4).png"),
+          actions: <Widget>[
+            MaterialButton(
+              elevation:5.0,
+              child: Text('Submit'),
+              onPressed: (){},
+            )
+          ],
+        );
+      });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,8 +64,10 @@ class _cartState extends State<cart> {
               subtitle: new Text("₹2000"),
             )),
             Expanded(
-              child: new MaterialButton(onPressed: (){},
-              child:new Text("Check Out",style:TextStyle(color: Colors.white)),
+              child: new FlatButton(onPressed: (){
+                createAlertDialog(context);
+              },
+              child:Text("Check Out",style:TextStyle(color: Colors.white)),
               color: Colors.redAccent),
             )
           ],
